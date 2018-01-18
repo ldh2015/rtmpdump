@@ -1904,6 +1904,7 @@ SendFCUnpublish(RTMP *r)
 SAVC(publish);
 SAVC(live);
 SAVC(record);
+SAVC(append);
 
 static int
 SendPublish(RTMP *r)
@@ -1929,7 +1930,18 @@ SendPublish(RTMP *r)
     return FALSE;
 
   /* FIXME: should we choose live based on Link.lFlags & RTMP_LF_LIVE? */
-  enc = AMF_EncodeString(enc, pend, &av_live);
+  if (r->Link.lFlags & RTMP_LF_LIVE)
+  {
+  	enc = AMF_EncodeString(enc, pend, &av_live);
+  }
+  else if (r->Link.lFlags & RTMP_LF_RECORD)
+  {
+	enc = AMF_EncodeString(enc, pend, &av_record);
+  }
+  else
+  {
+  	enc = AMF_EncodeString(enc, pend, &av_append);
+  }
   if (!enc)
     return FALSE;
 
