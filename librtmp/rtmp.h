@@ -172,6 +172,7 @@ extern "C"
 #define RTMP_LF_BUFX	0x0010	/* toggle stream on BufferEmpty msg */
 #define RTMP_LF_FTCU	0x0020	/* free tcUrl on close */
 #define RTMP_LF_FAPU	0x0040	/* free app on close */
+#define RTMP_LF_RECORD  0x0080  /* stream is record */
     int lFlags;
 
     int swfAge;
